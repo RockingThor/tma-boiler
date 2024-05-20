@@ -1,3 +1,4 @@
+"use client";
 import { Me } from "@/components/me";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
