@@ -2,14 +2,7 @@
 import { taskState } from "@/recoil/atom";
 import React from "react";
 import { useRecoilValue } from "recoil";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
 const TakeVote = () => {
