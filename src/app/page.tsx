@@ -37,6 +37,7 @@ export default function Home() {
             setLoading(false);
             setNoTask(true);
         }
+        setLoading(false);
     }
     return (
         <main className="flex min-h-screen flex-col items-center justify-between">
@@ -48,7 +49,11 @@ export default function Home() {
 
             <div className="">
                 {showStart && <Button onClick={getNExtTask}>Start Task</Button>}
-                {loading && <Loader />}
+                {loading && (
+                    <>
+                        <Loader /> {localStorage.getItem("token")} {token}
+                    </>
+                )}
                 {!loading && !showStart && <TakeVote />}
             </div>
 
