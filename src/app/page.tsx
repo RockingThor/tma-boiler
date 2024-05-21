@@ -60,7 +60,8 @@ export default function Home() {
                 {showStart && <Button onClick={getNExtTask}>Start Task</Button>}
                 {loading && (
                     <>
-                        <Loader /> {localStorage.getItem("token")} {token}
+                        <Loader /> {localStorage.getItem("token")} {token}{" "}
+                        {BACKEND_URL}
                     </>
                 )}
                 {!loading && !showStart && <TakeVote />}
