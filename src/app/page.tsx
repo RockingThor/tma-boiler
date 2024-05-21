@@ -9,17 +9,26 @@ import { Task } from "@/lib/type";
 import { useState } from "react";
 import TakeVote from "@/components/takeVote";
 import { Loader } from "@/components/loader";
+import { retrieveLaunchParams } from "@tma.js/sdk";
 
 export default function Home() {
-    const token = useRecoilValue(tokenState);
+    const [token, setToken] = useRecoilState(tokenState);
     const [taskData, setTaskData] = useRecoilState(taskState);
     const [loading, setLoading] = useState(false);
     const [showStart, setShowStart] = useState(true);
     const [noTask, setNoTask] = useRecoilState(noTaskState);
+    const { initData: data } = retrieveLaunchParams();
 
     async function getNExtTask() {
         setShowStart(false);
         setLoading(true);
+        const tokenResponse = await axios.post(`${BACKEND_URL}/signin`, {
+            telegram: data?.user?.username,
+        });
+        if (tokenResponse.data.token) {
+            localStorage.setItem("token", tokenResponse.data.token);
+            setToken(tokenResponse.data.token);
+        }
         const response = await axios.get(`${BACKEND_URL}/nextTask`, {
             headers: {
                 authorization: localStorage.getItem("token"),
