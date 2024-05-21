@@ -6,32 +6,32 @@ import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
+    subsets: ["latin"],
+    variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
-  title: "My Telegram Mini App",
-  description: "A mini app for Telegram.",
+    title: "OpenPolls",
+    description: "Your opinion matters.",
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        <TmaSDKProvider>
-          <LayoutChild>{children}</LayoutChild>
-        </TmaSDKProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body
+                className={cn(
+                    "min-h-screen bg-background font-sans antialiased",
+                    fontSans.variable
+                )}
+            >
+                <TmaSDKProvider>
+                    <LayoutChild>{children}</LayoutChild>
+                </TmaSDKProvider>
+            </body>
+        </html>
+    );
 }
