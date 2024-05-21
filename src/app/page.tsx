@@ -18,6 +18,7 @@ export default function Home() {
     const [showStart, setShowStart] = useState(true);
     const [noTask, setNoTask] = useRecoilState(noTaskState);
     const { initData: data } = retrieveLaunchParams();
+    const [testData, setTestData] = useState("Hello ji");
 
     async function getNExtTask() {
         setShowStart(false);
@@ -25,6 +26,7 @@ export default function Home() {
         const tokenResponse = await axios.post(`${BACKEND_URL}/signin`, {
             telegram: data?.user?.username,
         });
+        if (tokenResponse) setTestData("Hi ji test was successfull ji");
         if (tokenResponse.data.token) {
             localStorage.setItem("token", tokenResponse.data.token);
             setToken(tokenResponse.data.token);
@@ -61,7 +63,7 @@ export default function Home() {
                 {loading && (
                     <>
                         <Loader /> {localStorage.getItem("token")} {token}{" "}
-                        {BACKEND_URL}
+                        {BACKEND_URL} {testData}
                     </>
                 )}
                 {!loading && !showStart && <TakeVote />}
