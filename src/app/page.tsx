@@ -10,6 +10,7 @@ import { useState } from "react";
 import TakeVote from "@/components/takeVote";
 import { Loader } from "@/components/loader";
 import { retrieveLaunchParams } from "@tma.js/sdk";
+import { generateRandomString } from "@/lib/utils";
 
 export default function Home() {
     const [token, setToken] = useRecoilState(tokenState);
@@ -18,15 +19,16 @@ export default function Home() {
     const [showStart, setShowStart] = useState(true);
     const [noTask, setNoTask] = useRecoilState(noTaskState);
     const { initData: data } = retrieveLaunchParams();
-    const [testData, setTestData] = useState("Hello ji");
+    // const [testData, setTestData] = useState("Hello ji");
 
     async function getNExtTask() {
         setShowStart(false);
         setLoading(true);
         const tokenResponse = await axios.post(`${BACKEND_URL}/signin`, {
             telegram: data?.user?.username,
+            wallet: generateRandomString(16),
         });
-        if (tokenResponse) setTestData("Hi ji test was successfull ji");
+        // if (tokenResponse) setTestData("Hi ji test was successfull ji");
         if (tokenResponse.data.token) {
             localStorage.setItem("token", tokenResponse.data.token);
             setToken(tokenResponse.data.token);
@@ -62,8 +64,7 @@ export default function Home() {
                 {showStart && <Button onClick={getNExtTask}>Start Task</Button>}
                 {loading && (
                     <>
-                        <Loader /> {localStorage.getItem("token")} {token}{" "}
-                        {BACKEND_URL} {testData}
+                        <Loader />
                     </>
                 )}
                 {!loading && !showStart && <TakeVote />}

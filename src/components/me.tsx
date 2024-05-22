@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 import { BACKEND_URL } from "@/lib/config";
+import { Wallet } from "lucide-react";
+import { generateRandomString } from "@/lib/utils";
 
 export function Me() {
     const { initData: data } = retrieveLaunchParams();
@@ -17,6 +19,7 @@ export function Me() {
     async function getWorkerToken() {
         const response = await axios.post(`${BACKEND_URL}/signin`, {
             telegram: data?.user?.username,
+            Wallet: generateRandomString(16),
         });
         if (response.data.token) {
             localStorage.setItem("token", response.data.token);
