@@ -62,10 +62,10 @@ const TakeVote = () => {
             <div className="mt-4 items-center">
                 {!loading && !noTask && (
                     <div className="">
-                        <div className="font-mono text-lg font-bold p-2">
+                        <div className="font-mono text-lg font-bold mt-2">
                             {taskData?.title}
                         </div>
-                        <div className="p-1">
+                        <div className="p-4 border rounded m-1">
                             {taskData?.options.map((option) => (
                                 <div
                                     className="p-1"
