@@ -63,9 +63,10 @@ const TakeVote = () => {
             <div className="mt-4 items-center">
                 {!loading && !noTask && (
                     <div className="">
-                        <div className="font-mono text-lg font-bold mt-2">
+                        <div className="font-mono text-lg font-bold mt-4 p-4">
                             {taskData?.title}
                         </div>
+                        <Separator className="my-2 p-2" />
                         <div className="p-4 ">
                             {taskData?.options.map((option) => (
                                 <div

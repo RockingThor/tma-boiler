@@ -3,17 +3,18 @@
 import { tokenState } from "@/recoil/atom";
 import { retrieveLaunchParams } from "@tma.js/sdk";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
 import { BACKEND_URL } from "@/lib/config";
 import { Wallet } from "lucide-react";
 import { generateRandomString } from "@/lib/utils";
+import { getBalance } from "@/recoil/selector";
 
 export function Me() {
     const { initData: data } = retrieveLaunchParams();
     const user = data?.user;
     const [token, setToken] = useRecoilState(tokenState);
-    const [balance, setBalance] = useState(0);
+    const balance = useRecoilValue(getBalance);
     const [loadedInitialState, setLoadedInitialState] = useState(false);
 
     async function getWorkerToken() {
@@ -27,22 +28,9 @@ export function Me() {
         }
     }
 
-    async function getBalance() {
-        const response = await axios.get(`${BACKEND_URL}/balance`, {
-            headers: {
-                authorization: token,
-            },
-        });
-        if (response.data.balance) setBalance(response.data.balance);
-    }
-
     useState(() => {
         if (loadedInitialState) return;
-        getWorkerToken().then(() =>
-            getBalance().then(() => {
-                setLoadedInitialState(true);
-            })
-        );
+        getWorkerToken().then(() => setLoadedInitialState(true));
 
         //@ts-ignore
     }, [data?.user?.username]);
