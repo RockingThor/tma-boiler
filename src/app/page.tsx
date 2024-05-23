@@ -11,6 +11,7 @@ import TakeVote from "@/components/takeVote";
 import { Loader } from "@/components/loader";
 import { retrieveLaunchParams } from "@tma.js/sdk";
 import { generateRandomString } from "@/lib/utils";
+import { GiftIcon } from "lucide-react";
 
 export default function Home() {
     const [token, setToken] = useRecoilState(tokenState);
@@ -58,6 +59,11 @@ export default function Home() {
                 <p className=" left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
                     <code className="font-mono font-bold">OpenPolls🚀</code>
                 </p>
+                <div className="relative">
+                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2">
+                        <GiftIcon />
+                    </div>
+                </div>
             </div>
 
             <div className="mt-15">
