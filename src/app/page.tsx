@@ -12,6 +12,7 @@ import { Loader } from "@/components/loader";
 import { retrieveLaunchParams } from "@tma.js/sdk";
 import { generateRandomString } from "@/lib/utils";
 import { GiftIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
     const [token, setToken] = useRecoilState(tokenState);
@@ -21,6 +22,7 @@ export default function Home() {
     const [noTask, setNoTask] = useRecoilState(noTaskState);
     const { initData: data } = retrieveLaunchParams();
     // const [testData, setTestData] = useState("Hello ji");
+    const router = useRouter();
 
     async function getNExtTask() {
         setShowStart(false);
@@ -60,7 +62,12 @@ export default function Home() {
                     <code className="font-mono font-bold">OpenPolls🚀</code>
                 </p>
                 <div className="relative">
-                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2">
+                    <div
+                        className="absolute right-0 top-1/2 transform -translate-y-1/2 cursor-pointer mt-[-10px]"
+                        onClick={() => {
+                            router.push("/payout");
+                        }}
+                    >
                         <GiftIcon />
                     </div>
                 </div>
