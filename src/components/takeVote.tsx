@@ -7,6 +7,7 @@ import axios from "axios";
 import { BACKEND_URL } from "@/lib/config";
 import { Task } from "@/lib/type";
 import NoTask from "./noTask";
+import { Separator } from "./ui/separator";
 
 const TakeVote = () => {
     const taskData = useRecoilValue(taskState);
@@ -65,10 +66,10 @@ const TakeVote = () => {
                         <div className="font-mono text-lg font-bold mt-2">
                             {taskData?.title}
                         </div>
-                        <div className="p-4 border rounded m-1">
+                        <div className="p-4 ">
                             {taskData?.options.map((option) => (
                                 <div
-                                    className="p-1"
+                                    className="m-1"
                                     key={option.id}
                                 >
                                     <Image
@@ -81,6 +82,7 @@ const TakeVote = () => {
                                         }}
                                         className="cursor-pointer border-black rounded m-2"
                                     />
+                                    <Separator className="my-2 p-2" />
                                 </div>
                             ))}
                         </div>
