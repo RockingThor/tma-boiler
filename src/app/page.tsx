@@ -63,7 +63,7 @@ export default function Home() {
                 </p>
                 <div className="relative">
                     <div
-                        className="absolute right-0 top-1/2 transform -translate-y-1/2 cursor-pointer mt-[-10px]"
+                        className="absolute mt-7 items-center justify-start m-2 cursor-pointer"
                         onClick={() => {
                             router.push("/payout");
                         }}

@@ -61,43 +61,47 @@ const Page = () => {
                 </p>
             </div>
             {!isSubmitted && (
-                <div className="mt-15 flex items-center justify-center">
+                <div className="mt-15 items-center justify-center">
                     <div className="p-4 flex items-center justify-center">
                         <Form {...form}>
                             <form
                                 onSubmit={form.handleSubmit(onSubmit)}
-                                className="space-y-8"
+                                className=""
                             >
                                 <FormField
                                     control={form.control}
                                     name="address"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Username</FormLabel>
+                                            <FormLabel>
+                                                Enter your Solana Wallet Address
+                                            </FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    placeholder="Solana address here..."
+                                                    placeholder="Enter your Solana address here..."
                                                     {...field}
+                                                    className=""
                                                 />
                                             </FormControl>
-                                            <FormDescription>
-                                                Input your solana address here.
-                                            </FormDescription>
+
                                             <FormMessage />
                                         </FormItem>
                                     )}
                                 />
-                                <Button type="submit">Submit</Button>
+                                <Button
+                                    type="submit"
+                                    className="flex items-center justify-center mt-4"
+                                >
+                                    Submit
+                                </Button>
                             </form>
                         </Form>
                     </div>
-                    <div className="flex items-center justify-center font-mono text-lg">
-                        Your available balance: {balance / 1000000000}
+                    <div className="flex items-center justify-center font-mono ">
+                        Available balance: {balance / 1000000000}
                     </div>
-                    <p className="font-mono flex items-center justify-center mt-4">
-                        {
-                            "** Transaction fees are on us. Happy opinion sharing to you **"
-                        }
+                    <p className="font-mono flex items-center justify-center mt-4 text-sm">
+                        {"Transaction fees are on us🚀"}
                     </p>
                 </div>
             )}

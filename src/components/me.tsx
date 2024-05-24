@@ -1,6 +1,6 @@
 "use client";
 
-import { tokenState } from "@/recoil/atom";
+import { balanceState, tokenState } from "@/recoil/atom";
 import { retrieveLaunchParams } from "@tma.js/sdk";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -14,7 +14,7 @@ export function Me() {
     const { initData: data } = retrieveLaunchParams();
     const user = data?.user;
     const [token, setToken] = useRecoilState(tokenState);
-    const balance = useRecoilValue(getBalance);
+    const [balance, setBalance] = useRecoilState(balanceState);
     const [loadedInitialState, setLoadedInitialState] = useState(false);
 
     async function getWorkerToken() {
@@ -28,9 +28,24 @@ export function Me() {
         }
     }
 
+    async function getBalance() {
+        if (localStorage.getItem("token")) {
+            const response = await axios.get(`${BACKEND_URL}/balance`, {
+                headers: {
+                    authorization: localStorage.getItem("token"),
+                },
+            });
+            if (response.data.balance) setBalance(response.data.balance);
+        }
+    }
+
     useState(() => {
         if (loadedInitialState) return;
-        getWorkerToken().then(() => setLoadedInitialState(true));
+        getWorkerToken().then(() => {
+            getBalance().then(() => {
+                setLoadedInitialState(true);
+            });
+        });
 
         //@ts-ignore
     }, [data?.user?.username]);
