@@ -8,6 +8,14 @@ const nextConfig = {
             },
         ],
     },
+    // fallback: [
+    //     // These rewrites are checked after both pages/public files
+    //     // and dynamic routes are checked
+    //     {
+    //         source: "/api/:path*",
+    //         destination: `https://buidlback.rohitnandi.xyz/v1/workers/:path*`,
+    //     },
+    // ],
 };
 
 export default nextConfig;

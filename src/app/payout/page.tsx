@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -31,6 +30,8 @@ const formSchema = z.object({
 const Page = () => {
     const balance = useRecoilValue(getBalance);
     const [balanceNow, setBalanceNow] = useRecoilState(balanceState);
+    const [signature, setSignature] = useState("");
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -38,6 +39,7 @@ const Page = () => {
         },
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [amount, setAmount] = useState(0);
     const router = useRouter();
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -47,6 +49,11 @@ const Page = () => {
                 authorization: localStorage.getItem("token"),
             },
         });
+
+        if (response.data.signature) {
+            setSignature(response.data.signature);
+            setAmount(Number(response.data.amount));
+        }
 
         setBalanceNow(0);
 
@@ -107,11 +114,20 @@ const Page = () => {
             )}
             {isSubmitted && (
                 <div className="mt-20 flex items-center justify-center">
-                    <p className="font-mono">
-                        {
-                            "We have received your payout request. If you have enough balance, it will be transferred to your account within 30 mins"
-                        }
-                    </p>
+                    {signature.length > 0 && (
+                        <p className="font-mono">
+                            {`We have received your payout request of ${
+                                amount / 1000000000
+                            }.It will be transferred to your account within 30 mins. Here is your signature: ${signature}`}
+                        </p>
+                    )}
+                    {signature.length === 0 && (
+                        <p className="font-mono">
+                            {
+                                "We have received your payout request. Please keep an eye on your transaction."
+                            }
+                        </p>
+                    )}
                     <div className="p-4">
                         <Button
                             onClick={() => {
