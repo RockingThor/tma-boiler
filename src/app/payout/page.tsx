@@ -20,6 +20,7 @@ import axios from "axios";
 import { BACKEND_URL } from "@/lib/config";
 import { balanceState } from "@/recoil/atom";
 import { useRouter } from "next/navigation";
+import { headers } from "next/headers";
 
 const formSchema = z.object({
     address: z.string().min(2, {
@@ -43,12 +44,18 @@ const Page = () => {
     const router = useRouter();
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        const response = await axios.post(`${BACKEND_URL}/payout`, {
-            wallet: values.address,
-            headers: {
-                authorization: localStorage.getItem("token"),
+        console.log(localStorage.getItem("token"));
+        const response = await axios.post(
+            `${BACKEND_URL}/payout`,
+            {
+                wallet: values.address,
             },
-        });
+            {
+                headers: {
+                    authorization: localStorage.getItem("token"),
+                },
+            }
+        );
 
         if (response.data.signature) {
             setSignature(response.data.signature);
